@@ -1,2 +1,2 @@
 # Code_Lingo
- Coding education platform 
+This is the source code for the educational coding platform Code Lingo.
