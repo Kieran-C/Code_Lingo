@@ -1,8 +1,12 @@
 var firstRun = true
 
 var blockSelected = "forwardBlock"
-
+ 
 let blocks = []
+let turtleImg
+
+var turtlePosX
+var turtlePosY
 
 var blockLoc = [[]]
 
@@ -20,12 +24,15 @@ function setup()
 {
     var height = window.innerHeight
     var width = window.innerWidth
+    turtleImg = loadImage('Assets/turtle.png')
     createCanvas(width, height);
     background(255,255,255);
     blocks.push(new block("Forward",width*0.07,height*0.1))
     blocks.push(new block("Backward",width*0.07,height*0.25))
     blocks.push(new block("Left",width*0.07,height*0.4))
     blocks.push(new block("Right",width*0.07,height*0.55))
+    turtlePosX = width*0.26
+    turtlePosY = height*0.3
 }
 
 function draw()
@@ -46,7 +53,8 @@ function draw()
         } else {block.dragging=false;}
         block.move(block.dragging)
         block.display()
-    }        
+    }   
+    image(turtleImg,turtlePosX,turtlePosY,turtleImg.width/8,turtleImg.height/8)
 }
 
 function mouseReleased(){
@@ -64,6 +72,7 @@ class block{
         this.offsetY = 0
         this.dragging = false
     }
+    
     
     mouseTrack(){
         if (mouseX > this.posX && mouseX < this.posX + this.boxWidth && mouseY > this.posY && mouseY < this.posY + this.boxHeight){
@@ -88,8 +97,6 @@ class block{
             }
         }
     }
-    
-
     
     display(){
         rect(this.posX,this.posY,this.boxWidth,this.boxHeight,10)
