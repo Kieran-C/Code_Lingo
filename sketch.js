@@ -1,7 +1,5 @@
 var firstRun = true
 
-//var dragging = false
-
 var blockSelected = "forwardBlock"
 
 let blocks = []
@@ -24,8 +22,10 @@ function setup()
     var width = window.innerWidth
     createCanvas(width, height);
     background(255,255,255);
-    blocks.push(new block("forward",width*0.05,height*0.1))
-    blocks.push(new block("backward",width*0.1,height*0.3))
+    blocks.push(new block("Forward",width*0.07,height*0.1))
+    blocks.push(new block("Backward",width*0.07,height*0.25))
+    blocks.push(new block("Left",width*0.07,height*0.4))
+    blocks.push(new block("Right",width*0.07,height*0.55))
 }
 
 function draw()
@@ -70,14 +70,11 @@ class block{
             this.dragging = true
             this.offsetX = this.posX-mouseX
             this.offsetY = this.posY-mouseY
-            console.log('dragging'+this.blockID)
-            //return dragging
         }
     }
     
     move(){
         if (this.dragging){
-            console.log('moving'+this.blockID)
             this.posX = mouseX + this.offsetX
             this.posY = mouseY + this.offsetY
             if (this.posX < 0){
@@ -92,7 +89,15 @@ class block{
         }
     }
     
+
+    
     display(){
         rect(this.posX,this.posY,this.boxWidth,this.boxHeight,10)
+        textSize(16)
+        fill(255)
+        noStroke()
+        textAlign(CENTER)
+        text(this.blockID,this.posX+this.boxWidth/2,this.posY+this.boxHeight/2)
+        fill(94,228,187)
     }
 }
