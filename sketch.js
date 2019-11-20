@@ -9,6 +9,8 @@ let turtleImg
 var turtlePosX
 var turtlePosY
 var turtleRotation = 90
+var steps = 10
+var runScript = false
 
 var blockLoc = [[]]
 let blockOrder = []
@@ -35,8 +37,8 @@ function setup()
     background(255,255,255);
     blocks.push(new block("Forward",width*0.07,height*0.1))
     blocks.push(new block("Backward",width*0.07,height*0.25))
-    blocks.push(new block("Left",width*0.07,height*0.4))
-    blocks.push(new block("Right",width*0.07,height*0.55))
+    blocks.push(new block("Rotate Left",width*0.07,height*0.4))
+    blocks.push(new block("Rotate Right",width*0.07,height*0.55))
     turtlePosX = width*0.26
     turtlePosY = height*0.3
     
@@ -77,16 +79,6 @@ function draw()
     blockOrder.sort(function(a,b) {return a.posX-b.posX})
     
     console.log("1: ",blockOrder[0]," 2: ",blockOrder[1])
-
-//    if (blocks.length > 0){
-//        for (i = 0; i < blocks.length; i++){
-//            if ((blocks[i].posX < lowCmdCoord)&&(blocks[i].posY >= height*0.75)) {
-//                lowCmdCoord = blocks[i].posX
-//            }
-//        }
-//        //console.log(lowCmdCoord)
-//    }
-    
     
     if (turtleRotation == 0){
         image(turtleImgUp,turtlePosX,turtlePosY,turtleImgUp.width/8,turtleImgUp.height/8)
@@ -97,10 +89,78 @@ function draw()
     }else if (turtleRotation == 270){
         image(turtleImgLeft,turtlePosX,turtlePosY,turtleImgLeft.width/8,turtleImgLeft.height/8)
     }
+    
+    var commandList = []
+    commandList = blockOrder.map(x => x.blockID)
+    
+    startScriptBtn()
+    console.log(runScript)
+    
 }
 
 function mouseReleased(){
     dragging = false
+}
+
+function turtleForward(){
+    for (i = 0; i <= steps; i++){
+        if (turtleRotation == 0){
+        turtlePosY -= 10
+        }else if (turtleRotation == 90){
+            turtlePosX += 10
+        }else if (turtelRotation == 180){
+            turtlePosY += 10
+        }else if (turtleRotation == 270){
+            turtlePosX -= 10
+        }
+        turtleContain()
+    }
+}
+
+function turtleBackward(){
+    for (i = 0; i <= steps; i++){
+        if (turtleRotation == 0){
+        turtlePosY += 10
+        }else if (turtleRotation == 90){
+            turtlePosX -= 10
+        }else if (turtelRotation == 180){
+            turtlePosY -= 10
+        }else if (turtleRotation == 270){
+            turtlePosX += 10
+        }
+        turtleContain()
+    }
+}
+
+function rotateRight(){
+    turtleRotation += 90
+}
+
+function rotateRight(){
+    turtleRotation -= 90
+}
+
+function turtleContain(){
+    if (turtlePosX >= (width - (turtleImgDown.width/8))){
+        turtlePosX = width - (turtleImgDown.width/8)
+    }else if (turtlePosX <= width*0.25){
+        turtlePosX = width*0.25
+    }else if (turtlePosY >= (height*0.75 - (turtleImgDown.height/8))){
+        turtlePosY = height - (turtleImgDown.height/8)
+    }else if (turtlePosY <= 0){
+        turtlePosY = 0
+    }
+}
+
+function startScriptBtn(){
+    fill(94,228,187)
+    rect(width*0.03,height*0.78,60,30,10)
+    fill(255)
+    textAlign(CENTER)
+    text("RUN",(width*0.063),height*0.812)
+    if ((mouseIsPressed)&&(mouseX > width*0.03) && (mouseX < ((width*0.03) + 60)) && (mouseY > (height*0.78)) && (mouseY < (height*0.78) + 30)){
+        runScript = true
+    }
 }
 
 function blockLayout(){
@@ -133,7 +193,7 @@ function blockLayout(){
     fill(255)
     noStroke()
     textAlign(CENTER)
-    text('Left',(blockPosX+(blockBoxWidth/2)),(blockPosY+(blockBoxHeight/2)))
+    text('Rotate Left',(blockPosX+(blockBoxWidth/2)),(blockPosY+(blockBoxHeight/2)))
     fill(94,228,187)
     
     //Right
@@ -142,7 +202,7 @@ function blockLayout(){
     fill(255)
     noStroke()
     textAlign(CENTER)
-    text('Right',(blockPosX+(blockBoxWidth/2)),(blockPosY+(blockBoxHeight/2)))
+    text('Rotate Right',(blockPosX+(blockBoxWidth/2)),(blockPosY+(blockBoxHeight/2)))
     fill(94,228,187)
 }
 
