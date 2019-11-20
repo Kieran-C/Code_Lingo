@@ -3,7 +3,7 @@ var mysql = require('mysql');//loads mysql
 
 
 var app = express();//initialises express
-//sets express to draw files from the 'public' folder
+
 
 app.get('/', (req,res) => res.sendFile('index.html')); //sends the index.html file from public by default
 
@@ -33,7 +33,7 @@ function processData(data) { // called by above
         dataToSend.push(key+ " : "+row[key]) // pushes all fields to data to send
       } // you could do this a more effective way, with an array of arrays, this is just an example
     }
-    return(dataToSend)
+    console.log(dataToSend)
     app.get('/api/', (req,res) => res.send({data:dataToSend})); //this actually sends the data
   }
 
