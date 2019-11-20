@@ -3,7 +3,7 @@ var mysql = require('mysql');//loads mysql
 
 
 var app = express();//initialises express
-app.use(express.static('public')) //sets express to draw files from the 'public' folder
+//sets express to draw files from the 'public' folder
 
 app.get('/', (req,res) => res.sendFile('index.html')); //sends the index.html file from public by default
 
