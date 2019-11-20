@@ -11,6 +11,7 @@ var turtlePosY
 var turtleRotation = 90
 
 var blockLoc = [[]]
+let blockOrder = []
 
 var forwardBlock = {
     blockID: "",
@@ -65,14 +66,26 @@ function draw()
     
     var lowCmdCoord = width+1
     
-    if (blocks.length > 0){
-        for (i = 0; i < blocks.length; i++){
-            if ((blocks[i].posX < lowCmdCoord)&&(blocks[i].posY >= height*0.75)) {
-                lowCmdCoord = blocks[i].posX
-            }
-        }
-        console.log(lowCmdCoord)
-    }
+    blockOrder = []
+    
+    blocks.forEach (function (block) {
+        if (block.posY >= height*0.75){
+            blockOrder.push(block)
+        } 
+    })
+    
+    blockOrder.sort(function(a,b) {return a.posX-b.posX})
+    
+    console.log("1: ",blockOrder[0]," 2: ",blockOrder[1])
+
+//    if (blocks.length > 0){
+//        for (i = 0; i < blocks.length; i++){
+//            if ((blocks[i].posX < lowCmdCoord)&&(blocks[i].posY >= height*0.75)) {
+//                lowCmdCoord = blocks[i].posX
+//            }
+//        }
+//        //console.log(lowCmdCoord)
+//    }
     
     
     if (turtleRotation == 0){
