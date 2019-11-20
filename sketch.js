@@ -32,12 +32,13 @@ function setup()
     turtleImgDown = loadImage('Assets/turtle_down.png')
     turtleImgLeft = loadImage('Assets/turtle_left.png')
     turtleImgRight = loadImage('Assets/turtle_right.png')
+    logoImg = loadImage('Assets/logo.png')
     createCanvas(width, height);
     background(255,255,255);
-    blocks.push(new block("Forward",width*0.07,height*0.1))
-    blocks.push(new block("Backward",width*0.07,height*0.25))
-    blocks.push(new block("Rotate Left",width*0.07,height*0.4))
-    blocks.push(new block("Rotate Right",width*0.07,height*0.55))
+    blocks.push(new block("Forward",(width*0.125)-45,height*0.1))
+    blocks.push(new block("Backward",(width*0.125)-45,height*0.25))
+    blocks.push(new block("Rotate Left",(width*0.125)-45,height*0.4))
+    blocks.push(new block("Rotate Right",(width*0.125)-45,height*0.55))
     turtlePosX = width*0.26
     turtlePosY = height*0.3
     
@@ -56,6 +57,10 @@ function draw()
     fill(94,228,187)
     
     blockLayout()
+    displayLogo()
+    displayTimelineTag()
+    displayCommandTag()
+    displayPlayAreaTag()
     
     for (block of blocks){
         if (mouseIsPressed) {
@@ -93,6 +98,7 @@ function draw()
     commandList = blockOrder.map(x => x.blockID)
     
     drawScriptButton()
+    resetButton()
     //console.log(runScript)
     
     //console.log("Command Main List: ",commandList)
@@ -171,7 +177,7 @@ function turtleContain(){
     }else if (turtlePosX <= width*0.25){
         turtlePosX = width*0.25
     }else if (turtlePosY >= (height*0.75 - (turtleImgDown.height/8))){
-        turtlePosY = height - (turtleImgDown.height/8)
+        turtlePosY = height*0.75 - (turtleImgDown.height/8)
     }else if (turtlePosY <= 0){
         turtlePosY = 0
     }
@@ -183,10 +189,58 @@ function drawScriptButton(){
     fill(255)
     textAlign(CENTER)
     text("RUN",(width*0.046),height*0.803)
-//    if ((mouseIsPressed)&&(mouseX > width*0.03) && (mouseX < ((width*0.03) + 60)) && (mouseY > (height*0.78)) && (mouseY < (height*0.78) + 30)){
-//        runScript = true
-//        console.log("run pushed")
-//    }
+}
+
+function resetButton(){
+    fill(94,228,187)
+    rect(width*0.08,height*0.78,60,30,10)
+    fill(220,0,0)
+    textAlign(CENTER)
+    text("RESET",(width*0.096),height*0.803)
+}
+
+function displayLogo(){
+    image(logoImg,2,2,(logoImg.width)/4,(logoImg.height)/4)
+}
+
+function displayCommandTag(){
+    fill(255)
+    noStroke()
+    textAlign(CENTER)
+    text("C   O   M   M   A   N   D   S", width*0.125, height*0.04)
+    stroke(255)
+    line(width*0.075,height*0.05,width*0.175,height*0.05)
+    fill(94,228,187)
+    noStroke()
+}
+
+function displayPlayAreaTag(){
+    fill(255)
+    noStroke()
+    textAlign(CENTER)
+    text("T   H   E     P   L   A   Y     A   R   E   A", width*0.625, height*0.04)
+    stroke(255)
+    line(width*0.55,height*0.05,width*0.702,height*0.05)
+    fill(94,228,187)
+    noStroke()
+}
+
+function displayTimelineTag(){
+    fill(255)
+    noStroke()
+    beginShape()
+    vertex(width*0.05,height*0.965)
+    vertex(width*0.05,height*0.97)
+    vertex(width*0.90,height*0.97)
+    vertex(width*0.90,height*0.98)
+    vertex(width*0.92,height*0.9675)
+    vertex(width*0.90,height*0.955)
+    vertex(width*0.90,height*0.965)
+    vertex(width*0.05,height*0.965)
+    endShape()
+    textAlign(CENTER)
+    text("T   I   M   E  -  L   I   N   E",width/2,height*0.99)
+    fill(94,228,187)
 }
 
 function mouseClicked(){
@@ -194,20 +248,22 @@ function mouseClicked(){
     if ((mouseX > width*0.03) && (mouseX < ((width*0.03) + 60)) && (mouseY > (height*0.78)) && (mouseY < (height*0.78) + 30)){
         runScript = true
         console.log("run pushed")
+    }else if ((mouseX > width*0.08) && (mouseX < ((width*0.08) + 60)) && (mouseY > (height*0.78)) && (mouseY < (height*0.78) + 30)){
+        location.reload()
     }
 }
 
 function blockLayout(){
-    var blockPosX = width*0.07
-    var blockPosY = height
+    
     var blockBoxWidth = 90
     var blockBoxHeight = 50
+    var blockPosX = (width*0.125)-blockBoxWidth/2
+    var blockPosY = height
     
     //Forward
     rect(blockPosX,blockPosY*0.1,blockBoxWidth,blockBoxHeight,10)
     textSize(16)
     fill(255)
-    noStroke()
     textAlign(CENTER)
     text('Forward',(blockPosX+(blockBoxWidth/2)),(blockPosY+(blockBoxHeight/2)))
     fill(94,228,187)
@@ -216,7 +272,6 @@ function blockLayout(){
     rect(blockPosX,blockPosY*0.25,blockBoxWidth,blockBoxHeight,10)
     textSize(16)
     fill(255)
-    noStroke()
     textAlign(CENTER)
     text('Backward',(blockPosX+(blockBoxWidth/2)),(blockPosY+(blockBoxHeight/2)))
     fill(94,228,187)
@@ -225,7 +280,6 @@ function blockLayout(){
     rect(blockPosX,blockPosY*0.4,blockBoxWidth,blockBoxHeight,10)
     textSize(16)
     fill(255)
-    noStroke()
     textAlign(CENTER)
     text('Rotate Left',(blockPosX+(blockBoxWidth/2)),(blockPosY+(blockBoxHeight/2)))
     fill(94,228,187)
@@ -234,7 +288,6 @@ function blockLayout(){
     rect(blockPosX,blockPosY*0.55,blockBoxWidth,blockBoxHeight,10)
     textSize(16)
     fill(255)
-    noStroke()
     textAlign(CENTER)
     text('Rotate Right',(blockPosX+(blockBoxWidth/2)),(blockPosY+(blockBoxHeight/2)))
     fill(94,228,187)
