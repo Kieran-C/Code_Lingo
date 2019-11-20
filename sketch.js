@@ -11,7 +11,6 @@ var turtlePosY
 var turtleRotation = 90
 var steps = 10
 var runScript = false
-
 var blockLoc = [[]]
 let blockOrder = []
 
@@ -78,7 +77,7 @@ function draw()
     
     blockOrder.sort(function(a,b) {return a.posX-b.posX})
     
-    console.log("1: ",blockOrder[0]," 2: ",blockOrder[1])
+    //console.log("1: ",blockOrder[0]," 2: ",blockOrder[1])
     
     if (turtleRotation == 0){
         image(turtleImgUp,turtlePosX,turtlePosY,turtleImgUp.width/8,turtleImgUp.height/8)
@@ -90,12 +89,31 @@ function draw()
         image(turtleImgLeft,turtlePosX,turtlePosY,turtleImgLeft.width/8,turtleImgLeft.height/8)
     }
     
-    var commandList = []
+    commandList = []
     commandList = blockOrder.map(x => x.blockID)
     
-    startScriptBtn()
-    console.log(runScript)
+    drawScriptButton()
+    //console.log(runScript)
     
+    //console.log("Command Main List: ",commandList)
+    
+    if (runScript){
+        for (l = 0; l < commandList.length; l++){
+            if (commandList[l] === ("Forward")){
+                turtleForward()
+            }else if (commandList[l] === "Backward"){
+                turtleBackward()
+            }else if (commandList[l] === "Rotate Left"){
+                rotateLeft()
+            }else if (commandList[l] === "Rotate Right"){
+                rotateRight()
+            }
+            console.log("Command Length: ",commandList.length)
+            console.log("l: ",l)
+            console.log("Command: ",commandList[l])
+        }
+        runScript = false
+    }
 }
 
 function mouseReleased(){
@@ -108,7 +126,7 @@ function turtleForward(){
         turtlePosY -= 10
         }else if (turtleRotation == 90){
             turtlePosX += 10
-        }else if (turtelRotation == 180){
+        }else if (turtleRotation == 180){
             turtlePosY += 10
         }else if (turtleRotation == 270){
             turtlePosX -= 10
@@ -123,7 +141,7 @@ function turtleBackward(){
         turtlePosY += 10
         }else if (turtleRotation == 90){
             turtlePosX -= 10
-        }else if (turtelRotation == 180){
+        }else if (turtleRotation == 180){
             turtlePosY -= 10
         }else if (turtleRotation == 270){
             turtlePosX += 10
@@ -136,7 +154,7 @@ function rotateRight(){
     turtleRotation += 90
 }
 
-function rotateRight(){
+function rotateLeft(){
     turtleRotation -= 90
 }
 
@@ -152,14 +170,23 @@ function turtleContain(){
     }
 }
 
-function startScriptBtn(){
+function drawScriptButton(){
     fill(94,228,187)
     rect(width*0.03,height*0.78,60,30,10)
     fill(255)
     textAlign(CENTER)
     text("RUN",(width*0.063),height*0.812)
-    if ((mouseIsPressed)&&(mouseX > width*0.03) && (mouseX < ((width*0.03) + 60)) && (mouseY > (height*0.78)) && (mouseY < (height*0.78) + 30)){
+//    if ((mouseIsPressed)&&(mouseX > width*0.03) && (mouseX < ((width*0.03) + 60)) && (mouseY > (height*0.78)) && (mouseY < (height*0.78) + 30)){
+//        runScript = true
+//        console.log("run pushed")
+//    }
+}
+
+function mouseClicked(){
+    //When the mouse clicks the "RUN" button
+    if ((mouseX > width*0.03) && (mouseX < ((width*0.03) + 60)) && (mouseY > (height*0.78)) && (mouseY < (height*0.78) + 30)){
         runScript = true
+        console.log("run pushed")
     }
 }
 
