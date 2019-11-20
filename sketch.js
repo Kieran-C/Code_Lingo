@@ -113,6 +113,7 @@ function draw()
             console.log("Command: ",commandList[l])
         }
         runScript = false
+        console.log("Turtle X: ",turtlePosX," Turtle Y: ",turtlePosY)
     }
 }
 
@@ -152,10 +153,16 @@ function turtleBackward(){
 
 function rotateRight(){
     turtleRotation += 90
+    if (turtleRotation > 270){
+        turtleRotation = 0
+    }
 }
 
 function rotateLeft(){
-    turtleRotation -= 90
+    turtleRotation += 270
+    if (turtleRotation  > 270){
+        turtleRotation -= 360
+    }
 }
 
 function turtleContain(){
@@ -175,7 +182,7 @@ function drawScriptButton(){
     rect(width*0.03,height*0.78,60,30,10)
     fill(255)
     textAlign(CENTER)
-    text("RUN",(width*0.063),height*0.812)
+    text("RUN",(width*0.046),height*0.803)
 //    if ((mouseIsPressed)&&(mouseX > width*0.03) && (mouseX < ((width*0.03) + 60)) && (mouseY > (height*0.78)) && (mouseY < (height*0.78) + 30)){
 //        runScript = true
 //        console.log("run pushed")
