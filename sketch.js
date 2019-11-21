@@ -32,7 +32,7 @@ function setup()
     turtleImgDown = loadImage('Assets/turtle_down.png')
     turtleImgLeft = loadImage('Assets/turtle_left.png')
     turtleImgRight = loadImage('Assets/turtle_right.png')
-    logoImg = loadImage('Assets/logo.png')
+    logoImg = loadImage('Assets/clearLogo.png')
     createCanvas(width, height);
     background(255,255,255);
     blocks.push(new block("Forward",(width*0.125)-45,height*0.1))
@@ -56,7 +56,7 @@ function draw()
     
     fill(94,228,187)
     
-    blockLayout()
+    //blockLayout()
     displayLogo()
     displayTimelineTag()
     displayCommandTag()
@@ -188,7 +188,7 @@ function drawScriptButton(){
     rect(width*0.03,height*0.78,60,30,10)
     fill(255)
     textAlign(CENTER)
-    text("RUN",(width*0.046),height*0.803)
+    text("RUN",(width*0.051),height*0.81)
 }
 
 function resetButton(){
@@ -196,7 +196,7 @@ function resetButton(){
     rect(width*0.08,height*0.78,60,30,10)
     fill(220,0,0)
     textAlign(CENTER)
-    text("RESET",(width*0.096),height*0.803)
+    text("RESET",(width*0.104),height*0.81)
 }
 
 function displayLogo(){
