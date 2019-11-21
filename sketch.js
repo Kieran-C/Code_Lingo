@@ -188,7 +188,7 @@ function drawScriptButton(){
     rect(width*0.03,height*0.78,60,30,10)
     fill(255)
     textAlign(CENTER)
-    text("RUN",(width*0.051),height*0.81)
+    text("RUN",(width*0.046),height*0.8)
 }
 
 function resetButton(){
@@ -196,7 +196,7 @@ function resetButton(){
     rect(width*0.08,height*0.78,60,30,10)
     fill(220,0,0)
     textAlign(CENTER)
-    text("RESET",(width*0.104),height*0.81)
+    text("RESET",(width*0.096),height*0.8)
 }
 
 function displayLogo(){
